@@ -94,7 +94,7 @@ const App: React.FC = () => {
         <HomeScreen
           onStartGame={() => {
             const btnSound = new Audio(`${buttonSound}`);
-            btnSound.volume = 0.5;
+            btnSound.volume = 0.3;
             btnSound.play();
 
             navigateTo("loading")
