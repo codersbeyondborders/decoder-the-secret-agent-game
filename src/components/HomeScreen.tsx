@@ -114,7 +114,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
             type="text"
             value={username}
             onChange={handleInputChange}
-            placeholder="Enter Your Unique Agent Name"
+            placeholder="Enter your unique agent ID or create one"
             className={`w-96 p-4 text-lg bg-gray-800 text-green-300 border-2 
                      ${showError ? 'border-red-500' : 'border-green-300'} 
                      rounded-md focus:outline-none focus:ring-2 
