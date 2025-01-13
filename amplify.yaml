@@ -3,7 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm ci
+        - npm install
         - npm install typescript
     build:
       commands:
@@ -12,6 +12,7 @@ frontend:
     baseDirectory: build
     files:
       - '**/*'
+      - '**/*.webp'
       - '**/*.png'
       - '**/*.jpg'
       - '**/*.mp3'
