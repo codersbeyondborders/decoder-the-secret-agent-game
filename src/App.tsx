@@ -1,6 +1,7 @@
 import React from "react";
 import LoadingScreen from "./components/LoadingScreen.tsx";
 import HomeScreen from "./components/HomeScreen.tsx";
+import LeaderboardScreen from './components/LeaderboardScreen.tsx';
 import HowToPlayScreen from "./components/HowToPlayScreen.tsx";
 import MissionBriefing from "./components/MissionBriefing.tsx";
 import GamePlayScreen from "./components/GamePlayScreen.tsx";
@@ -19,6 +20,7 @@ import "./index.css";
 type Screen =
   | "loading"
   | "start"
+  | "leaderboard"
   | "howToPlay"
   | "missionBriefing"
   | "level"
@@ -101,6 +103,15 @@ const App: React.FC = () => {
             }
           }
           onHowToPlay={() => navigateTo("howToPlay")}
+          onLeaderboard={() => navigateTo('leaderboard')}
+
+        />
+      )}
+
+      {currentScreen === "leaderboard" && (
+        <LeaderboardScreen
+          onBack={() => navigateTo("start")}
+          onGoHome={() => resetAndGoHome("start")}
         />
       )}
 

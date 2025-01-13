@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { levels } from "../shared/levels.ts";
 import hintSound from "../assets/sounds/hint.mp3";
 
-export type Screen =
+type Screen =
+  | "loading"
   | "start"
+  | "leaderboard"
   | "howToPlay"
   | "missionBriefing"
   | "level"
