@@ -12,7 +12,14 @@ frontend:
     baseDirectory: build
     files:
       - '**/*'
+      - '**/*.png'
+      - '**/*.jpg'
+      - '**/*.mp3'
+      - '**/*.wav'
+      - '**/*.json'
+      - '**/*.ico'
+      - '**/*.svg'
+    discard-paths: no
   cache:
     paths:
       - node_modules/**/*
-      - $(npm cache dir)/**/*

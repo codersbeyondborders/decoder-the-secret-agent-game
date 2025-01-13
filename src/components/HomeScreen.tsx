@@ -1,5 +1,5 @@
 import React from "react";
-import homeImg from "../assets/start.png";
+import homeImg from "../assets/images/start.png";
 import ButtonWithSound from "./ButtonWithSound.tsx";
 
 interface HomeScreenProps {

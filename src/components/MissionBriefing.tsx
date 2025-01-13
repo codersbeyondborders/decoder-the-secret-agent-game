@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ButtonWithSound from "./ButtonWithSound.tsx";
-import typingSound from "../assets/typing.mp3"; // Ensure this path is correct
-
+import typingSound from "../assets/sounds/typing.mp3"; 
 interface MissionBriefingProps {
   missionTitle: string;
   missionDescription: string;

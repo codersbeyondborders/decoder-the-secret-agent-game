@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import ButtonWithSound from "./ButtonWithSound.tsx";
-import backgroundMusicFile from "../assets/game-music.mp3";
+import backgroundMusicFile from "../assets/sounds/game-music.mp3";
 
 interface FinalScreenProps {
   score: number;

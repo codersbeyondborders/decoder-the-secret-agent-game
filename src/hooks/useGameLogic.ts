@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { levels } from "../shared/levels.ts";
-import hintSound from "../assets/hint.mp3";
+import hintSound from "../assets/sounds/hint.mp3";
 
 export type Screen =
   | "start"

@@ -9,9 +9,9 @@ import FailScreen from "./components/FailScreen.tsx";
 import FinalScreen from "./components/FinalScreen.tsx";
 import { useGameLogic } from "./hooks/useGameLogic.ts";
 import { levels } from "./shared/levels.ts";
-import failSound from "./assets/fail.mp3";
-import successSound from "./assets/level-complete.mp3";
-import buttonSound from "./assets/button-click.mp3";
+import failSound from "./assets/sounds/fail.mp3";
+import successSound from "./assets/sounds/level-complete.mp3";
+import buttonSound from "./assets/sounds/button-click.mp3";
 
 
 import "./index.css";

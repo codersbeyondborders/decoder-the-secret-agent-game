@@ -1,16 +1,16 @@
-import level1Image from "../assets/level1.webp";
-import level2Image from "../assets/level2.webp";
-import level3Image from "../assets/level3.webp";
-import level4Image from "../assets/level4.webp";
-import level5Image from "../assets/level5.webp";
-import level6Image from "../assets/level6.webp";
-import level7Image from "../assets/level7.webp";
-import level8Image from "../assets/level8.webp";
-import level9Image from "../assets/level9.webp";
-import level10Image from "../assets/level10.webp";
-import level11Image from "../assets/level11.webp";
-import level12Image from "../assets/level12.webp";
-import level13Image from "../assets/level13.webp";
+import level1Image from "../assets/images/level1.webp";
+import level2Image from "../assets/images/level2.webp";
+import level3Image from "../assets/images/level3.webp";
+import level4Image from "../assets/images/level4.webp";
+import level5Image from "../assets/images/level5.webp";
+import level6Image from "../assets/images/level6.webp";
+import level7Image from "../assets/images/level7.webp";
+import level8Image from "../assets/images/level8.webp";
+import level9Image from "../assets/images/level9.webp";
+import level10Image from "../assets/images/level10.webp";
+import level11Image from "../assets/images/level11.webp";
+import level12Image from "../assets/images/level12.webp";
+import level13Image from "../assets/images/level13.webp";
 
 export const levels = [
   {

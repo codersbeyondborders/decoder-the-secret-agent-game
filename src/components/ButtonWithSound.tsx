@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import clickSound from "../assets/button-click.mp3";
+import clickSound from "../assets/sounds/button-click.mp3";
 
 interface ButtonWithSoundProps {
   children: ReactNode; // For the button text or child elements
