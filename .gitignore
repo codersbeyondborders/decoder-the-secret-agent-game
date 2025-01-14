@@ -56,7 +56,10 @@ amplifytools.xcconfig
 **.sample
 #amplify-do-not-edit-end
 
+# Ignore local certs
 *.pem
 *.key
 *.crt
 *.csr
+start-https.js
+start-https.sh
