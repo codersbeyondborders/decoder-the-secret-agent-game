@@ -13,8 +13,6 @@ import { levels } from "./shared/levels.ts";
 import failSound from "./assets/sounds/fail.mp3";
 import successSound from "./assets/sounds/level-complete.mp3";
 import buttonSound from "./assets/sounds/button-click.mp3";
-
-
 import "./index.css";
 
 type Screen =
@@ -32,17 +30,11 @@ type Screen =
 const App: React.FC = () => {
   const {
     score,
-    setScore,
     currentLevel,
-    setCurrentLevel,
     encryptedMessage,
-    setEncryptedMessage,
     hintsUsed,
-    setHintsUsed,
     isHintModalOpen,
-    setIsHintModalOpen,
     currentHint,
-    setCurrentHint,
     timer,
     setTimer,
     currentScreen,

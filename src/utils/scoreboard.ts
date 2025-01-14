@@ -41,9 +41,11 @@ export class ScoreboardManager {
     try {
       // Query by userID instead of id
       const existingUsers = await this.client.graphql<ListScoreboardsQuery>({
-        query: scoreboardsByUserID, // You'll need to add this query
+        query: scoreboardsByUserID, 
         variables: { userID }
       });
+
+      console.warn('existingUsers:', existingUsers);
 
       if (existingUsers.data?.scoreboardsByUserID?.items?.length > 0) {
         return existingUsers.data.scoreboardsByUserID.items[0] as Scoreboard;
@@ -59,6 +61,10 @@ export class ScoreboardManager {
         query: createScoreboard,
         variables: { input: newUserInput }
       });
+      
+      console.log('Returned user = ', newUser);
+      console.warn('Returned user = ', newUser);
+      console.error('Returned user = ', newUser);
 
       return newUser.data?.createScoreboard || null;
     } catch (error) {
@@ -66,11 +72,14 @@ export class ScoreboardManager {
       throw error;
     }
   }
-
+  
   static async updateScore(userID: string, newScore: number): Promise<Scoreboard | null> {
     try {
+      console.warn('updateScore...');
+
       const user = await this.getOrCreateUser(userID);
-      
+      console.warn('updateScore user:', user);
+
       if (!user) {
         throw new Error('Failed to get or create user');
       }
@@ -88,7 +97,7 @@ export class ScoreboardManager {
         variables: { input: updateInput }
       });
   
-      console.log('Update response:', updatedScore);
+      console.warn('Update response:', updatedScore);
   
       if (!updatedScore.data?.updateScoreboard) {
         console.warn('Update successful but no data returned');

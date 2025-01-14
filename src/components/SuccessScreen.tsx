@@ -34,16 +34,14 @@ const SuccessScreen: React.FC<SuccessScreenProps> = ({
           <ButtonWithSound
             className="ring-2 ring-green-300 w-48 px-6 py-3 bg-gray-800 text-green-300 rounded-md text-lg font-normal hover:bg-green-300 hover:text-gray-800 transition duration-300 border-4 border-[#194a53]"
             onClick={onNextLevel}
-            ariaLabel={currentLevel === 13 ? "View Credits" : "Next Level"}
-            type="button"
+            
           >
             {currentLevel === 13 ? "View Credits" : "Next Level"}
           </ButtonWithSound>
           <ButtonWithSound
             className="ring-2 ring-green-300 w-48 px-6 py-3 bg-green-300 text-gray-800 rounded-md text-lg font-normal hover:bg-gray-800  hover:text-green-300  transition duration-300 border-4 border-[#194a53]"
             onClick={onGoHome}
-            ariaLabel="Quit"
-            type="button"
+            
           >
             Quit
           </ButtonWithSound>

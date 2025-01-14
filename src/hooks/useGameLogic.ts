@@ -51,6 +51,7 @@ export const useGameLogic = () => {
   // Initialize or get user
   const initializeUser = async (username: string) => {
   try {
+    console.warn('Initialize or get user...');
     const user = await ScoreboardManager.getOrCreateUser(username);
     setCurrentUser(user);
     if (user?.score) {
@@ -59,6 +60,7 @@ export const useGameLogic = () => {
     }
     return user;
   } catch (error) {
+    console.error('Error initializing user:', error);
     setUserError("Error initializing user");
     return null;
   }

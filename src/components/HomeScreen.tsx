@@ -64,8 +64,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
             rounded-md text-sm font-normal hover:bg-gray-800  
             transition duration-300 border-4 border-[#194a53]"
             onClick={onHowToPlay}
-            ariaLabel="How to Play"
-            type="button"
           >
             <span className="flex items-center justify-center">
               <svg className="mr-2" width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,8 +78,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
             rounded-md text-sm font-normal hover:bg-gray-800  
             transition duration-300 border-4 border-[#194a53]"
             onClick={onLeaderboard}
-            ariaLabel="Leaderboard"
-            type="button"
+            
           >
             <span className="flex items-center justify-center">
             <svg
@@ -106,14 +103,12 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
           <h1 
             className="text-6xl font-extrabold text-green-200 mt-10 animate-pulse" 
             style={{ fontFamily: "monospace" }}
-            accessibilityRole="heading" accessibilityLevel={1}
           >
             DECODER
           </h1>
           <h2 
             className="text-2xl animate-pulse font-normal text-green-400 mt-2" 
             style={{ fontFamily: "monospace" }}
-            accessibilityRole="heading" accessibilityLevel={2}
           >
             The Secret Agent
           </h2>
@@ -147,16 +142,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
             disabled={isLoading}
           />
           </div>
-          <ButtonWithSound
+          <button
             className="ring-2 ring-green-300 px-6 py-3 bg-green-300 text-gray-800 
             rounded-md text-lg font-normal hover:bg-gray-800 hover:text-green-300 
             transition duration-300 border-4 border-[#194a53]"
             disabled={isLoading}
-            ariaLabel="Play Now"
-            type="button"
           >
             {isLoading ? 'Processing...' : 'Play Now'}
-            </ButtonWithSound>
+            </button>
         </form>
         {/* Error Message */}
         {showError && (

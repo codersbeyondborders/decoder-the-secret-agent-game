@@ -36,8 +36,7 @@ const HowToPlayScreen: React.FC<HowToPlayScreenProps> = ({ onGoHome }) => {
           <ButtonWithSound
             className="ring-2 ring-green-300 w-48 px-6 py-3 bg-green-300 text-gray-800 rounded-md text-lg font-normal hover:bg-gray-800  hover:text-green-300  transition duration-300 border-4 border-[#194a53]"
             onClick={onGoHome}
-            ariaLabel="Back"
-            type="button"
+            
           >
             Back
           </ButtonWithSound>
