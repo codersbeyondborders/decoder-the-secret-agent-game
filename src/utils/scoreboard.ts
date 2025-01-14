@@ -23,7 +23,7 @@ export class ScoreboardManager {
   // Validate userID format
   static validateUserID(userID: string): boolean {
     // Check length (6-10 characters)
-    if (userID.length < 6 || userID.length > 10) {
+    if (userID.length < 6 || userID.length > 16) {
       return false;
     }
     
@@ -65,11 +65,16 @@ export class ScoreboardManager {
       console.log('Returned user = ', newUser);
       console.warn('Returned user = ', newUser);
       console.error('Returned user = ', newUser);
-
-      return newUser.data?.createScoreboard || null;
+      
+      if (newUser.data?.createScoreboard) {
+        return newUser.data?.createScoreboard as Scoreboard;
+      }else{
+        return null;
+      }
+      
     } catch (error) {
       console.error('Error in getOrCreateUser:', error);
-      throw error;
+      return null;
     }
   }
   

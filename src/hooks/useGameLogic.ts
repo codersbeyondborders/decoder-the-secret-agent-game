@@ -30,13 +30,15 @@ export const useGameLogic = () => {
   // Add new state for user management
   const [currentUser, setCurrentUser] = useState<Scoreboard | null>(null);
   const [userError, setUserError] = useState<string | null>(null);
+  const [showUserError, setShowUserError] = useState(false);
 
   const updateScoreAndSync = async (newScore: number) => {
     setScore(newScore);
-    if (currentUser) {
+    const uname = localStorage.getItem('GameUser');
+    if (uname) {
       try {
-        console.log('Updating score:', { userID: currentUser.userID, newScore });
-        await ScoreboardManager.updateScore(currentUser.userID, newScore);
+        console.log('Updating score:', { userID: uname, newScore });
+        await ScoreboardManager.updateScore(uname, newScore);
         console.log('Score update successful');
       } catch (error) {
         console.error('Failed to update score in the database:', error);
@@ -61,7 +63,8 @@ export const useGameLogic = () => {
     return user;
   } catch (error) {
     console.error('Error initializing user:', error);
-    setUserError("Error initializing user");
+    setUserError("Agent ID must be AlphaNumeric between 6-16 characters");
+    setShowUserError(true);
     return null;
   }
 };
@@ -117,21 +120,22 @@ export const useGameLogic = () => {
     setIsHintModalOpen(true);
   };
 
-  // Modified submitAnswer to update user score
   const submitAnswer = async (answer: string): Promise<boolean> => {
     const correctAnswer = randomMessage.toLowerCase();
     if (answer.toLowerCase() === correctAnswer) {
+      setCurrentScreen('success'); 
       const bonusPoints = timer > 30 ? 5 : 0;
       const newScore = score + 10 * currentLevel + bonusPoints;
       await updateScoreAndSync(newScore);
       return true;
     } else {
+      setCurrentScreen('fail'); 
       const newScore = score - 5;
       await updateScoreAndSync(newScore);
-      setCurrentScreen('fail');
       return false;
     }
-  };
+};
+
 
   const nextLevel = () => {
     if (currentLevel < levels.length) {
@@ -154,7 +158,6 @@ export const useGameLogic = () => {
   };
 
   const resetGame = async () => {
-    await updateScoreAndSync(0);
     setCurrentLevel(1);
     setHintsUsed([false, false, false, false, false, false, false, false, false, false]);
     setTimer(60);
@@ -186,6 +189,8 @@ export const useGameLogic = () => {
     resetGame,
     userError,
     setUserError,
+    showUserError,
+    setShowUserError,
     currentUser,
     setCurrentUser,
     initializeUser,

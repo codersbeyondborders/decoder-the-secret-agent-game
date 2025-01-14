@@ -14,9 +14,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
   onHowToPlay,
   onLeaderboard 
 }) => {
-  const { initializeUser, userError, setUserError } = useGameLogic();
+  const { initializeUser, userError, setUserError,showUserError,setShowUserError } = useGameLogic();
   const [username, setUsername] = useState<string>("");
-  const [showError, setShowError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
 
@@ -24,22 +23,22 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
     event.preventDefault();
     
     if (!username.trim()) {
-      setShowError(true);
+      setShowUserError(true);
       setUserError("AGENT NAME REQUIRED");
-      setTimeout(() => setShowError(false), 3000);
+      setTimeout(() => setShowUserError(false), 3000);
       return;
     }
     setIsLoading(true);
     try {
       const user = await initializeUser(username);
       if (user) {
-        localStorage.setItem('lastUsername', username);
+        localStorage.setItem('GameUser', username);
         onStartGame();
       }
     } catch (error) {
       setUserError("ERROR CREATING AGENT");
-      setShowError(true);
-      setTimeout(() => setShowError(false), 3000);
+      setShowUserError(true);
+      setTimeout(() => setShowUserError(false), 3000);
     }finally {
       setIsLoading(false);
     }
@@ -48,7 +47,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setUsername(value);
-    if (showError) setShowError(false);
+    if (showUserError) setShowUserError(false);
   };
 
 
@@ -134,7 +133,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
             onChange={handleInputChange}
             placeholder="Enter your unique agent ID or create one"
             className={`w-[500px] p-4 text-lg bg-gray-800 text-green-300 border-2 
-                     ${showError ? 'border-red-500' : 'border-green-300'} 
+                     ${showUserError ? 'border-red-500' : 'border-green-300'} 
                      rounded-md focus:outline-none focus:ring-2 
                      focus:ring-green-400 focus:border-transparent
                      placeholder-green-600`}
@@ -152,7 +151,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
             </button>
         </form>
         {/* Error Message */}
-        {showError && (
+        {showUserError && (
             <div className="text-center">
               <div className="animate-pulse">
                 <span className="text-red-500 font-bold">[ERROR]</span>{" "}

@@ -51,17 +51,17 @@ const GamePlayScreen: React.FC<GamePlayScreenProps> = ({
     }
   }, [timer, onFail, score]);
 
-  const handleAnswerSubmit = (answer: string) => {
-    const isCorrect = submitAnswer(answer);
+  const handleAnswerSubmit = async (answer: string) => {
+    const isCorrect = await submitAnswer(answer);
     if (isCorrect) {
       onLevelComplete(score);
     } else {
       onFail(score - 5, false);
     }
-  };
+};
 
   return (
-    <div className="h-screen bg-black text-white font-mono">
+    <div className="bg-black text-white font-mono pb-10">
       {/* Header */}
       <div className="flex justify-between items-center px-6 py-2 bg-gray-900">
 
