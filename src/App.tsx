@@ -117,7 +117,6 @@ const App: React.FC = () => {
 
       {currentScreen === "howToPlay" && (
         <HowToPlayScreen
-          onStartGame={() => navigateTo("loading")}
           onGoHome={() => resetAndGoHome("start")}
         />
       )}

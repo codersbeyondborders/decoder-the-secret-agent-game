@@ -2,11 +2,10 @@ import React from "react";
 import ButtonWithSound from "./ButtonWithSound.tsx";
 
 interface HowToPlayScreenProps {
-  onStartGame: () => void;
   onGoHome: () => void;
 }
 
-const HowToPlayScreen: React.FC<HowToPlayScreenProps> = ({ onStartGame, onGoHome }) => {
+const HowToPlayScreen: React.FC<HowToPlayScreenProps> = ({ onGoHome }) => {
   return (
     <div className="h-screen bg-black flex flex-col items-center justify-center text-white font-mono">
       <div className="w-3/4 pb-4 bg-black border-4 border-[#194a53] rounded-md shadow-lg">
@@ -35,16 +34,12 @@ const HowToPlayScreen: React.FC<HowToPlayScreenProps> = ({ onStartGame, onGoHome
 
         <div className="flex space-x-8 justify-center mb-5">
           <ButtonWithSound
-            className="ring-2 ring-green-300 w-48 px-6 py-3 bg-gray-800 text-green-300 rounded-md text-lg font-normal hover:bg-green-300 hover:text-gray-800 transition duration-300 border-4 border-[#194a53]"
-            onClick={onStartGame}
-          >
-            Start
-          </ButtonWithSound>
-          <ButtonWithSound
             className="ring-2 ring-green-300 w-48 px-6 py-3 bg-green-300 text-gray-800 rounded-md text-lg font-normal hover:bg-gray-800  hover:text-green-300  transition duration-300 border-4 border-[#194a53]"
             onClick={onGoHome}
+            ariaLabel="Back"
+            type="button"
           >
-            Quit
+            Back
           </ButtonWithSound>
         </div>
 

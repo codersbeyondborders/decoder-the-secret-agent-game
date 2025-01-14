@@ -28,6 +28,8 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ score, onPlayAgain }) => {
       <ButtonWithSound
         className="bg-green-600 text-black px-6 py-2 rounded-lg hover:text-white hover:bg-gray-800 border-4 border-gray-800"
         onClick={onPlayAgain}
+        ariaLabel="Play Again"
+        type="button"
       >
         Play Again
       </ButtonWithSound>

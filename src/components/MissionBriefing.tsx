@@ -64,6 +64,8 @@ const MissionBriefing: React.FC<MissionBriefingProps> = ({
           <ButtonWithSound
             onClick={onStartLevel}
             className="ring-2 ring-green-300 w-48 px-6 py-3 bg-gray-800 text-green-300 rounded-md text-lg font-normal hover:bg-green-300 hover:text-gray-800 transition duration-300 border-4 border-[#194a53]"
+            ariaLabel="Start Now"
+            type="button"
           >
             Start Now
           </ButtonWithSound>
@@ -71,7 +73,9 @@ const MissionBriefing: React.FC<MissionBriefingProps> = ({
           <ButtonWithSound
             onClick={onGoHome}
             className="ring-2 ring-green-300 w-48 px-6 py-3 bg-green-300 text-gray-800 rounded-md text-lg font-normal hover:bg-gray-800  hover:text-green-300  transition duration-300 border-4 border-[#194a53]"
-          >
+            ariaLabel="Quit"
+            type="button"
+         >
             Quit
           </ButtonWithSound>
         </div>

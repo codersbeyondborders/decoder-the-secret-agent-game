@@ -17,15 +17,19 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
   const { initializeUser, userError, setUserError } = useGameLogic();
   const [username, setUsername] = useState<string>("");
   const [showError, setShowError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleStartGame = async () => {
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    
     if (!username.trim()) {
       setShowError(true);
       setUserError("AGENT NAME REQUIRED");
       setTimeout(() => setShowError(false), 3000);
       return;
     }
-
+    setIsLoading(true);
     try {
       const user = await initializeUser(username);
       if (user) {
@@ -36,10 +40,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
       setUserError("ERROR CREATING AGENT");
       setShowError(true);
       setTimeout(() => setShowError(false), 3000);
+    }finally {
+      setIsLoading(false);
     }
   };
 
-  // Handle input change with validation feedback
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setUsername(value);
@@ -49,7 +54,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
 
   return (
     <div className="h-screen bg-black flex flex-col items-center justify-center text-white font-mono">
-      {/* Terminal Screen Effect */}
       <div className="w-3/4 pb-8 bg-black border-4 border-[#194a53] rounded-md shadow-lg">
         <div className="text-center">
           <p className="text-xl p-4 text-white tracking-wide bg-[#194a53]"></p>
@@ -60,6 +64,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
             rounded-md text-sm font-normal hover:bg-gray-800  
             transition duration-300 border-4 border-[#194a53]"
             onClick={onHowToPlay}
+            ariaLabel="How to Play"
+            type="button"
           >
             <span className="flex items-center justify-center">
               <svg className="mr-2" width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,6 +80,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
             rounded-md text-sm font-normal hover:bg-gray-800  
             transition duration-300 border-4 border-[#194a53]"
             onClick={onLeaderboard}
+            ariaLabel="Leaderboard"
+            type="button"
           >
             <span className="flex items-center justify-center">
             <svg
@@ -98,12 +106,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
           <h1 
             className="text-6xl font-extrabold text-green-200 mt-10 animate-pulse" 
             style={{ fontFamily: "monospace" }}
+            accessibilityRole="heading" accessibilityLevel={1}
           >
             DECODER
           </h1>
           <h2 
             className="text-2xl animate-pulse font-normal text-green-400 mt-2" 
             style={{ fontFamily: "monospace" }}
+            accessibilityRole="heading" accessibilityLevel={2}
           >
             The Secret Agent
           </h2>
@@ -112,7 +122,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
         <div className="my-4">
           <img
             src={homeImg}
-            alt="Detective"
+            alt="Game logo showing a secret agent"
             className="w-40 mx-auto"
           />
         </div>
@@ -121,9 +131,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
           Decode encrypted messages, expose the bad guys, and change the fate of the world!
         </p>
 
-        {/* Username Input with Error Message */}
-        <div className="flex flex-row space-x-4 justify-center mb-10">
-          <div>
+        <form onSubmit={handleSubmit} className="flex flex-row space-x-4 justify-center mb-10">
+        <div>
           <input
             type="text"
             value={username}
@@ -135,17 +144,20 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
                      focus:ring-green-400 focus:border-transparent
                      placeholder-green-600`}
             maxLength={20}
+            disabled={isLoading}
           />
           </div>
           <ButtonWithSound
             className="ring-2 ring-green-300 px-6 py-3 bg-green-300 text-gray-800 
             rounded-md text-lg font-normal hover:bg-gray-800 hover:text-green-300 
             transition duration-300 border-4 border-[#194a53]"
-            onClick={handleStartGame}
+            disabled={isLoading}
+            ariaLabel="Play Now"
+            type="button"
           >
-            Play Now
-          </ButtonWithSound>
-        </div>
+            {isLoading ? 'Processing...' : 'Play Now'}
+            </ButtonWithSound>
+        </form>
         {/* Error Message */}
         {showError && (
             <div className="text-center">

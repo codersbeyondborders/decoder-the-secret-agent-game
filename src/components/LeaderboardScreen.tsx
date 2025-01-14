@@ -98,6 +98,8 @@ const LeaderboardScreen: React.FC<LeaderboardScreenProps> = ({ onBack }) => {
                      rounded-md text-lg font-normal hover:bg-green-300 hover:text-gray-800 
                      transition duration-300 border-4 border-[#194a53]"
             onClick={onBack}
+            ariaLabel="Back"
+            type="button"
           >
             Back
           </ButtonWithSound>
