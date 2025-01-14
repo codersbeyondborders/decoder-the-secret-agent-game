@@ -13,7 +13,7 @@ const HintImage: React.FC<HintImageProps> = ({ backgroundImage, onUseHint, hints
       className="relative bg-cover bg-center shadow-lg"
       style={{
         backgroundImage: `url(${backgroundImage})`,
-        width: "100%", 
+        width: "100%",
         height: "100%",
         backgroundPosition: "center",
         backgroundSize: "contain",
@@ -23,20 +23,20 @@ const HintImage: React.FC<HintImageProps> = ({ backgroundImage, onUseHint, hints
       }}
     >
       {hints.map((hint, index) =>
-        
-          <div
-            key={index}
-            className="absolute cursor-help	"
-            style={{
-              top: hint.coordinates.top,
-              left: hint.coordinates.left,
-              width: hint.coordinates.width,
-              height: hint.coordinates.height,
-            }}
-            onClick={() => onUseHint(index)}
-            title={hint.text}
-          />
-        
+
+        <div
+          key={index}
+          className="absolute cursor-help	"
+          style={{
+            top: hint.coordinates.top,
+            left: hint.coordinates.left,
+            width: hint.coordinates.width,
+            height: hint.coordinates.height,
+          }}
+          onClick={() => onUseHint(index)}
+          title={hint.text}
+        />
+
       )}
     </div>
   );

@@ -28,7 +28,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ isFinal, onComplete }) =>
   return (
     <div className="h-screen flex flex-col items-center justify-center bg-black text-white font-mono">
       <h1 className="text-2xl font-bold mb-4 text-green-500">
-        {isFinal?'Finalizing Mission...':'Initializing Mission...'}
+        {isFinal ? 'Finalizing Mission...' : 'Initializing Mission...'}
       </h1>
       <div className="w-3/4 bg-gray-700 rounded-full h-6 overflow-hidden">
         <div
@@ -39,7 +39,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ isFinal, onComplete }) =>
         </div>
       </div>
       <p className="mt-4 text-gray-400 text-sm">
-        {isFinal?'Closing all enemy activities.... Please wait..':'Scanning for enemy codes.... Please wait.'}
+        {isFinal ? 'Closing all enemy activities.... Please wait..' : 'Scanning for enemy codes.... Please wait.'}
       </p>
     </div>
   );

@@ -1,0 +1,7 @@
+type Scoreboard @model @auth(rules: [{ allow: public }]) {
+  id: ID!
+  userID: String! @index(name: "byUserID", queryField: "scoreboardsByUserID")
+  score: Int!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}

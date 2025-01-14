@@ -55,3 +55,8 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
+
+*.pem
+*.key
+*.crt
+*.csr

@@ -9,7 +9,28 @@
       "UnauthRoleName": "amplify-decoder-prod-674c4-unauthRole",
       "StackName": "amplify-decoder-prod-674c4",
       "StackId": "arn:aws:cloudformation:us-east-1:571935043575:stack/amplify-decoder-prod-674c4/4f52adf0-d206-11ef-8d4d-0e74ec9e0b53",
-      "AmplifyAppId": "d2irbq1jycmnep"
+      "AmplifyAppId": "d1nedoeni88u83"
+    }
+  },
+  "test": {
+    "awscloudformation": {}
+  },
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-decoder-dev-6566e-authRole",
+      "UnauthRoleArn": "arn:aws:iam::571935043575:role/amplify-decoder-dev-6566e-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::571935043575:role/amplify-decoder-dev-6566e-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-decoder-dev-6566e-deployment",
+      "UnauthRoleName": "amplify-decoder-dev-6566e-unauthRole",
+      "StackName": "amplify-decoder-dev-6566e",
+      "StackId": "arn:aws:cloudformation:us-east-1:571935043575:stack/amplify-decoder-dev-6566e/636ea560-d25a-11ef-8dfc-0affec8e8649",
+      "AmplifyAppId": "d1nedoeni88u83"
+    },
+    "categories": {
+      "api": {
+        "decoder": {}
+      }
     }
   }
 }

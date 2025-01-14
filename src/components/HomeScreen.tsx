@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import homeImg from "../assets/images/start.png";
 import ButtonWithSound from "./ButtonWithSound.tsx";
+import { useGameLogic } from "../hooks/useGameLogic.ts";
 
 interface HomeScreenProps {
   onStartGame: () => void;
@@ -13,25 +14,38 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
   onHowToPlay,
   onLeaderboard 
 }) => {
+  const { initializeUser, userError, setUserError } = useGameLogic();
   const [username, setUsername] = useState<string>("");
   const [showError, setShowError] = useState(false);
 
-  const handleStartGame = () => {
+  const handleStartGame = async () => {
     if (!username.trim()) {
       setShowError(true);
-      // Auto-hide error after 3 seconds
+      setUserError("AGENT NAME REQUIRED");
       setTimeout(() => setShowError(false), 3000);
       return;
     }
-    setShowError(false);
-    onStartGame();
+
+    try {
+      const user = await initializeUser(username);
+      if (user) {
+        localStorage.setItem('lastUsername', username);
+        onStartGame();
+      }
+    } catch (error) {
+      setUserError("ERROR CREATING AGENT");
+      setShowError(true);
+      setTimeout(() => setShowError(false), 3000);
+    }
   };
 
-  // Handle input change
+  // Handle input change with validation feedback
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
+    const value = e.target.value;
+    setUsername(value);
     if (showError) setShowError(false);
   };
+
 
   return (
     <div className="h-screen bg-black flex flex-col items-center justify-center text-white font-mono">
@@ -43,13 +57,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
           <div className="flex flex-row items-center m-4 justify-between">
           <ButtonWithSound
             className="ring-2 ring-green-300 w-40 px-4 py-2 bg-black text-green-300 
-            rounded-md text-sm font-normal hover:bg-green-300 hover:text-gray-800 
+            rounded-md text-sm font-normal hover:bg-gray-800  
             transition duration-300 border-4 border-[#194a53]"
             onClick={onHowToPlay}
           >
-            <span className="flex items-center">
-              <svg className="mr-2" width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM12 7.75C11.3787 7.75 10.875 8.25368 10.875 8.875C10.875 9.28921 10.5392 9.625 10.125 9.625C9.71079 9.625 9.375 9.28921 9.375 8.875C9.375 7.42525 10.5503 6.25 12 6.25C13.4497 6.25 14.625 7.42525 14.625 8.875C14.625 9.58584 14.3415 10.232 13.883 10.704C13.7907 10.7989 13.7027 10.8869 13.6187 10.9708C13.4029 11.1864 13.2138 11.3753 13.0479 11.5885C12.8289 11.8699 12.75 12.0768 12.75 12.25V13C12.75 13.4142 12.4142 13.75 12 13.75C11.5858 13.75 11.25 13.4142 11.25 13V12.25C11.25 11.5948 11.555 11.0644 11.8642 10.6672C12.0929 10.3733 12.3804 10.0863 12.6138 9.85346C12.6842 9.78321 12.7496 9.71789 12.807 9.65877C13.0046 9.45543 13.125 9.18004 13.125 8.875C13.125 8.25368 12.6213 7.75 12 7.75ZM12 17C12.5523 17 13 16.5523 13 16C13 15.4477 12.5523 15 12 15C11.4477 15 11 15.4477 11 16C11 16.5523 11.4477 17 12 17Z" fill="#194a53"/>
+            <span className="flex items-center justify-center">
+              <svg className="mr-2" width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" clipRule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM12 7.75C11.3787 7.75 10.875 8.25368 10.875 8.875C10.875 9.28921 10.5392 9.625 10.125 9.625C9.71079 9.625 9.375 9.28921 9.375 8.875C9.375 7.42525 10.5503 6.25 12 6.25C13.4497 6.25 14.625 7.42525 14.625 8.875C14.625 9.58584 14.3415 10.232 13.883 10.704C13.7907 10.7989 13.7027 10.8869 13.6187 10.9708C13.4029 11.1864 13.2138 11.3753 13.0479 11.5885C12.8289 11.8699 12.75 12.0768 12.75 12.25V13C12.75 13.4142 12.4142 13.75 12 13.75C11.5858 13.75 11.25 13.4142 11.25 13V12.25C11.25 11.5948 11.555 11.0644 11.8642 10.6672C12.0929 10.3733 12.3804 10.0863 12.6138 9.85346C12.6842 9.78321 12.7496 9.71789 12.807 9.65877C13.0046 9.45543 13.125 9.18004 13.125 8.875C13.125 8.25368 12.6213 7.75 12 7.75ZM12 17C12.5523 17 13 16.5523 13 16C13 15.4477 12.5523 15 12 15C11.4477 15 11 15.4477 11 16C11 16.5523 11.4477 17 12 17Z" fill="#f6d46d"/>
               </svg>
               <span className="w-40">How to Play</span>
             </span>
@@ -57,16 +71,16 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
 
           <ButtonWithSound
             className="ring-2 ring-green-300 w-40 px-4 py-2 bg-black text-green-300 
-                     rounded-md text-sm font-normal hover:bg-green-300 hover:text-gray-800 
-                     transition duration-300 border-4 border-[#194a53]"
+            rounded-md text-sm font-normal hover:bg-gray-800  
+            transition duration-300 border-4 border-[#194a53]"
             onClick={onLeaderboard}
           >
-            <span className="flex items-center">
+            <span className="flex items-center justify-center">
             <svg
               className="mr-2"
               width="24px"
               height="24px"
-              fill="#194a53"
+              fill="#f6d46d"
               viewBox="0 0 1920 1920"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -108,14 +122,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
         </p>
 
         {/* Username Input with Error Message */}
-        <div className="flex flex-row items-center space-x-4 justify-center mb-10">
+        <div className="flex flex-row space-x-4 justify-center mb-10">
           <div>
           <input
             type="text"
             value={username}
             onChange={handleInputChange}
             placeholder="Enter your unique agent ID or create one"
-            className={`w-96 p-4 text-lg bg-gray-800 text-green-300 border-2 
+            className={`w-[500px] p-4 text-lg bg-gray-800 text-green-300 border-2 
                      ${showError ? 'border-red-500' : 'border-green-300'} 
                      rounded-md focus:outline-none focus:ring-2 
                      focus:ring-green-400 focus:border-transparent
@@ -124,7 +138,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
           />
           </div>
           <ButtonWithSound
-            className="ring-2 ring-green-300 w-48 px-6 py-3 bg-green-300 text-gray-800 
+            className="ring-2 ring-green-300 px-6 py-3 bg-green-300 text-gray-800 
             rounded-md text-lg font-normal hover:bg-gray-800 hover:text-green-300 
             transition duration-300 border-4 border-[#194a53]"
             onClick={handleStartGame}
@@ -138,7 +152,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
               <div className="animate-pulse">
                 <span className="text-red-500 font-bold">[ERROR]</span>{" "}
                 <span className="text-red-400">
-                AGENT NAME REQUIRED
+                  {userError}
                 </span>
               </div>
               

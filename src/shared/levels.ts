@@ -389,4 +389,3 @@ function brailleCipher(message: string){
   };
   return message.split('').map(char => brailleCode[char] || char).join(' ');
 }
-

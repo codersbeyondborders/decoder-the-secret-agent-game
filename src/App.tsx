@@ -100,7 +100,7 @@ const App: React.FC = () => {
             btnSound.play();
 
             navigateTo("loading")
-            }
+          }
           }
           onHowToPlay={() => navigateTo("howToPlay")}
           onLeaderboard={() => navigateTo('leaderboard')}
@@ -124,8 +124,8 @@ const App: React.FC = () => {
 
       {currentScreen === "missionBriefing" && (
         <MissionBriefing
-          missionTitle={levels[currentLevel-1].missionTitle}
-          missionDescription={levels[currentLevel-1].missionDescription}
+          missionTitle={levels[currentLevel - 1].missionTitle}
+          missionDescription={levels[currentLevel - 1].missionDescription}
           onStartLevel={() => navigateTo("level")}
           onGoHome={() => resetAndGoHome("start")}
         />

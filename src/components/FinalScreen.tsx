@@ -12,10 +12,10 @@ const FinalScreen: React.FC<FinalScreenProps> = ({ score, onPlayAgain }) => {
   useEffect(() => {
     const backgroundMusic = new Audio(backgroundMusicFile);
     backgroundMusic.volume = 0.3;
-    backgroundMusic.loop = true; 
+    backgroundMusic.loop = true;
     backgroundMusic.play().catch((err) => console.error("Audio Error:", err));
     return () => {
-      backgroundMusic.pause(); 
+      backgroundMusic.pause();
       backgroundMusic.currentTime = 0;
     };
   }, []);
