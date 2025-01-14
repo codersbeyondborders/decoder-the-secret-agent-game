@@ -79,7 +79,7 @@ const App: React.FC = () => {
     }
   };
 
-  const handleFail = (isTimeout: boolean) => {
+  const handleFail = () => {
     const gameoverSound = new Audio(`${failSound}`);
     gameoverSound.volume = 0.1;
     gameoverSound.play();
@@ -135,7 +135,7 @@ const App: React.FC = () => {
         <GamePlayScreen
           onGoHome={() => resetAndGoHome("start")}
           onLevelComplete={handleLevelComplete}
-          onFail={() => handleFail(false)}
+          onFail={handleFail}
           score={score}
           timer={timer}
           currentLevel={currentLevel}

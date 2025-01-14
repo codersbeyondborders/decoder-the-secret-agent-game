@@ -74,29 +74,40 @@ export class ScoreboardManager {
       if (!user) {
         throw new Error('Failed to get or create user');
       }
-
-      // Only update if new score is higher
-      if (newScore > user.score) {
-        const updateInput: UpdateScoreboardInput = {
-          id: user.id,  // Use the auto-generated ID here
-          score: newScore
-        };
-
-        const updatedScore = await this.client.graphql<UpdateScoreboardMutation>({
-          query: updateScoreboard,
-          variables: { input: updateInput }
-        });
-
-        return updatedScore.data?.updateScoreboard || null;
+  
+      console.log('Current user score:', user.score);
+      console.log('Attempting to update to new score:', newScore);
+  
+      const updateInput: UpdateScoreboardInput = {
+        id: user.id,
+        score: newScore
+      };
+  
+      const updatedScore = await this.client.graphql<UpdateScoreboardMutation>({
+        query: updateScoreboard,
+        variables: { input: updateInput }
+      });
+  
+      console.log('Update response:', updatedScore);
+  
+      if (!updatedScore.data?.updateScoreboard) {
+        console.warn('Update successful but no data returned');
       }
-
-      return user;
+  
+      return updatedScore.data?.updateScoreboard || null;
+  
     } catch (error) {
       console.error('Error in updateScore:', error);
+      console.error('Error details:', {
+        userID,
+        newScore,
+        errorMessage: error.message,
+        errorStack: error.stack
+      });
       throw error;
     }
   }
-
+  
 
   // Fetch top 10 scores
   static async getTopScores(limit: number = 10): Promise<Scoreboard[]> {

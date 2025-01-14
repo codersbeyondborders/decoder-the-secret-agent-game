@@ -35,27 +35,34 @@ export const useGameLogic = () => {
     setScore(newScore);
     if (currentUser) {
       try {
+        console.log('Updating score:', { userID: currentUser.userID, newScore });
         await ScoreboardManager.updateScore(currentUser.userID, newScore);
+        console.log('Score update successful');
       } catch (error) {
         console.error('Failed to update score in the database:', error);
+        // You might want to show an error to the user here
       }
+    } else {
+      console.warn('No current user found when trying to update score');
     }
   };
+  
 
   // Initialize or get user
   const initializeUser = async (username: string) => {
-    try {
-      const user = await ScoreboardManager.getOrCreateUser(username);
-      setCurrentUser(user);
-      if (user?.score) {
-        setScore(user.score);
-      }
-      return user;
-    } catch (error) {
-      setUserError("Error initializing user");
-      return null;
+  try {
+    const user = await ScoreboardManager.getOrCreateUser(username);
+    setCurrentUser(user);
+    if (user?.score) {
+      console.log('Initializing user with score:', user.score);
+      setScore(user.score);
     }
-  };
+    return user;
+  } catch (error) {
+    setUserError("Error initializing user");
+    return null;
+  }
+};
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
@@ -76,8 +83,13 @@ export const useGameLogic = () => {
     }
 
     if (timer === 0) {
-      updateScoreAndSync(score - 5);
-      setCurrentScreen('fail');
+      const newScore = score - 5;
+      // Handle async operation outside of useEffect
+      const handleTimeout = async () => {
+        await updateScoreAndSync(newScore);
+        setCurrentScreen('fail');
+      };
+      handleTimeout();
     }
 
     return () => {
@@ -112,7 +124,9 @@ export const useGameLogic = () => {
       await updateScoreAndSync(newScore);
       return true;
     } else {
-      await updateScoreAndSync(score - 5);
+      const newScore = score - 5;
+      await updateScoreAndSync(newScore);
+      setCurrentScreen('fail');
       return false;
     }
   };
